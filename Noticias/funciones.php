@@ -195,7 +195,12 @@ function editar_noticia($conexion, $titulo, $descripcion, $foto, $fecha, $id) {
 }
 
 function usuarios($conexion) {
-    $query = "SELECT nombre, clave FROM usuarios ORDER BY id_usuarios";
+    $query = "SELECT usuario, clave FROM usuarios ORDER BY id_usuarios";
+    $consulta = mysqli_query($conexion, $query);
+    return $consulta;
+}
+function usuario_admin($conexion){
+    $query = "SELECT id_usuarios, roles_idroles FROM usuarios";
     $consulta = mysqli_query($conexion, $query);
     return $consulta;
 }

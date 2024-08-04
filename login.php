@@ -14,7 +14,7 @@
     
     while ($row2 = mysqli_fetch_assoc($usuario)) {
     
-        if(strcmp($row2['nombre'],$usu) === 0 && strcmp($row2['clave'],$clave) === 0){
+        if(strcmp($row2['usuario'],$usu) === 0 && strcmp($row2['clave'],$clave) === 0){
             
             session_start();
             session_set_cookie_params(600);

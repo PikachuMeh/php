@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if(isset($_SESSION['usuario'])){  
-        $nombre = $_SESSION['nombre'];
+        $nombre = $_SESSION['usuario'];
         $apellido = $_SESSION['apellido'];
     } else {
         header("Location: /php/");
@@ -13,7 +13,8 @@
 
     $titulo = sacar_noticias($conexion);
     $bandera = 0;
-
+    $usuario = usuario_admin($conexion);
+    $usuariox = mysqli_fetch_array($usuario);
     //Ruta externa a PHP
     $r_php = "Noticias/";
 ?>
@@ -46,7 +47,16 @@
                         </form>
                         <form action="cerrar_sesion.php">
                             <button class="btn btn-primary ms-1 me-1">Cerrar sesion</button>
-                        </form>    
+                        </form>
+                        <?php
+                            if($usuariox['roles_idroles'] == 1){
+                        ?>
+                        <form action = "Noticias/Admin/registrar_usuario.php">
+                            <button class="btn btn-primary ms-1 me-1">Registrar Usuario</button>
+                        </form>
+                        <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

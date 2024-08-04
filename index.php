@@ -42,12 +42,12 @@
                                 <form action="login.php" method="POST" class="form-signin">
                                     <label for="usuario">
                                         <span>Usuario</span> <br>
-                                        <input type="text" name="usuario" class="form-control form-control-lg" placeholder="Ingrese su nombre de usuario">
+                                        <input type="text" name="usuario" class="form-control form-control-lg" placeholder="Ingrese su nombre de usuario" required>
                                     </label>
                                     <br><br>
                                     <label for="inicio-platzi">
                                         <span>Clave</span> <br>
-                                        <input type="password" name="clave" placeholder="ingrese su clave" class="form-control form-control-lg" >
+                                        <input type="password" name="clave" placeholder="ingrese su clave" class="form-control form-control-lg" required>
                                     </label>
                                     <br>
                                     <br><br>

@@ -13,7 +13,8 @@
 
     $titulo = sacar_noticias($conexion);
     $bandera = 0;
-    $usuario = usuario_admin($conexion);
+    $usuario = usuario_admin($conexion,$nombre);
+
     $usuariox = mysqli_fetch_array($usuario);
     //Ruta externa a PHP
     $r_php = "Noticias/";
@@ -42,8 +43,18 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">   
                     </ul>
                     <div class="d-flex" role="search">
+                        <?php
+                            if($usuariox['roles_idroles'] == 1){
+                        ?>    
                         <form action="Noticias/registrar_noticia.php">
                             <button class="btn btn-primary ms-1 me-1">Registrar Noticias</button>
+                        </form>
+                        
+                        <?php
+                            }
+                        ?>
+                        <form action="Noticias/Perfil/perfil.php">
+                            <button class="btn btn-primary ms-1 me-1">Perfil</button>
                         </form>
                         <form action="cerrar_sesion.php">
                             <button class="btn btn-primary ms-1 me-1">Cerrar sesion</button>

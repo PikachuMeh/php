@@ -199,8 +199,8 @@ function usuarios($conexion) {
     $consulta = mysqli_query($conexion, $query);
     return $consulta;
 }
-function usuario_admin($conexion){
-    $query = "SELECT id_usuarios, roles_idroles FROM usuarios";
+function usuario_admin($conexion,$usuario){
+    $query = "SELECT id_usuarios, roles_idroles FROM usuarios where usuario = '$usuario'";
     $consulta = mysqli_query($conexion, $query);
     return $consulta;
 }
@@ -210,4 +210,20 @@ function ver_noticia($conexion, $var) {
     $consulta = mysqli_query($conexion, $query);
     return $consulta;
 }
-?>
+function usuario_validar($conexion) {
+    $query = "SELECT usuario,cedula,clave,correo from usuarios";
+    $consulta = mysqli_query($conexion, $query);
+    return $consulta;
+}
+
+function registrar_usuarios($conexion,$usuario,$nombre,$apellido, $correo, $cedula, $nacimiento, $clave,$desc_per,$pais,$estado,$roles_idroles,$token) {
+    
+    
+    $query2 = "INSERT INTO token (recuperacion) VALUES ('$token')";
+    mysqli_query($conexion, $query2);
+    $token_id = mysqli_insert_id($conexion);
+    $query = "INSERT INTO usuarios (usuario,nombre,apellido,correo,cedula,nacimiento,clave,desc_per,pais,estado,roles_idroles,token_idtoken) values 
+    ('$usuario','$nombre','$apellido','$correo','$cedula','$nacimiento','$clave','$desc_per','$pais','$estado','$roles_idroles','$token_id')";
+    mysqli_query($conexion, $query);
+    
+}

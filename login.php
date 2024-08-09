@@ -11,11 +11,10 @@
     $usu = $_POST['usuario'];
 
     $clave = $_POST['clave'];
-    
-    while ($row2 = mysqli_fetch_assoc($usuario)) {
-    
-        if(strcmp($row2['usuario'],$usu) === 0 && strcmp($row2['clave'],$clave) === 0){
-            
+    $bandera = 0;
+    while ($row2 = mysqli_fetch_array($usuario)) {
+        $bandera = 1;
+        if(strcmp($row2['usuario'],$usu) == 0 && strcmp($row2['clave'],$clave) == 0){
             session_start();
             session_set_cookie_params(600);
             
@@ -28,7 +27,7 @@
         }else{
             $bandera++;
         }
-        if($bandera == 5 || $bandera > 5){
+        if( $bandera > 50){
             header("Location: /php/");
         }
     }

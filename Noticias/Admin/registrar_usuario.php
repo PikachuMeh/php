@@ -1,10 +1,20 @@
 
+<?php 
+    session_start();
+    if(isset($_SESSION['usuario'])){  
+        $nombre = $_SESSION['usuario'];
+        $apellido = $_SESSION['apellido'];
+    } else {
+        header("Location: /php/");
+        exit();
+    }
+?>
 <html lang="es">
     
     <head>
         <title>Mintur - Inicio</title>
         <meta charset="UFT-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximun-scale=1, minimun-scale=1,">
+        
         
         <!--<link rel="stylesheet" href="../../css/fontello.css">-->
         <link rel="stylesheet" href="../../css/style.css">
@@ -40,69 +50,77 @@
                         <div class="card shadow-2-strong box-shadow" style="border-radius: 1rem;">
                             <div class="card-body p-5 text-center">
                                 <h3 class="mb-5">Registro de Usuario</h3>
-                                <form action="registro_usu.php" method="POST" class="form-signin">
+                                <form action="validar_usuarios.php" method="POST" class="form-signin" id="registroForm">
                                     <label for="usuario">
                                         <span>Usuario</span> <br>
-                                        <input type="text" name="usuario" class="form-control form-control-lg" placeholder="Ingrese su nombre de usuario" required>
+                                        <input type="text" id="usuario" name="usuario" class="form-control form-control-lg" placeholder="Ingrese su nombre de usuario" required maxlength="10" minlength="4">
                                     </label>
                                     <br><br>
                                     <label for="nombre">
                                         <span>Nombre</span> <br>
-                                        <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Ingrese su nombre" required>
+                                        <input type="text" id="nombre" name="nombre" class="form-control form-control-lg" placeholder="Ingrese su nombre" required maxlength="20" minlength="4">
                                     </label>
                                     <br><br>
                                     <label for="apellido">
                                         <span>Apellido</span> <br>
-                                        <input type="text" name="apellido" class="form-control form-control-lg" placeholder="Ingrese su apellido" required>
+                                        <input type="text" id="apellido" name="apellido" class="form-control form-control-lg" placeholder="Ingrese su apellido" required maxlength="20" minlength="4">
                                     </label>
                                     <br><br>
                                     <label for="cedula">
-                                    <span>cedula</span> <br>
+                                        <span>cedula</span> <br>
                                         <select name="cod_ced" required>
                                             <option value="V" selected>V</option>
                                             <option value="J">J</option>
                                             <option value="E">E</option>
                                             <option value="I">I</option>
                                         </select>
-
-                                        <input type="number" name="cedula" placeholder="ingrese su cedula"  minlength="8" maxlength="9" class="form-control form-control-lg" required>
-
+                                        <input type="number" class="form-control form-control-lg" name ="cedula" id="cedula" maxlength="9" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                                    </label>
+                                    <label for="fecha_nac">
+                                        <span>Fecha de nacimiento</span> <br>
+                                        <input type="date" id="fecha_nac" name="fecha_nac" class="form-control form-control-lg" required min="1940-01-01" max="2010-12-31">
                                     </label>
                                     <br><br>
-                                    <label for="descripcion_per">
-                                        <span>Correo</span> <br>
-                                        <input type="desc_per" name="descripcion_per" class="form-control form-control-lg" required>
-                                    </label>
+                                    <div class="form-group row margin mb-1 pb-1">
+                                        <label for="inicio-platzi">
+                                            <span class="text-size">Descripcion</span>
+                                            <div class="col-12">
+                                                <textarea class="form-control" id="descripcion" name="desc" placeholder="Descripcion de tu perfil (opcional)"></textarea>
+                                            </div>
+                                        </label>
+                                    </div>
                                     <br><br>
                                     <label for="correo">
                                         <span>Correo</span> <br>
-                                        <input type="email" name="correo" placeholder="ingrese su correo" class="form-control form-control-lg" required>
+                                        <input type="email" id="correo" name="correo" placeholder="ingrese su correo" class="form-control form-control-lg" required>
                                     </label>
                                     <br><br>
-                                    <label for="inicio-platzi">
+                                    <label for="clave">
                                         <span>Clave</span> <br>
-                                        <input type="password" name="clave" placeholder="ingrese su clave" class="form-control form-control-lg" required>
+                                        <input type="password" id="clave" name="clave" placeholder="ingrese su clave" class="form-control form-control-lg" required>
                                     </label>
                                     <br><br>
                                     <label for="pais">
                                         <span>Seleccione un Pais:</span>
-                                        <div id = "select_pais">
-                                        <select id="paisSelect">
-                                            <option  value = "0" disabled>Ingrese una opcion:</option>
-                                        </select>
+                                        <div id="select_pais">
+                                            <select id="paisSelect" name="paisSelect">
+                                                <option value="0" disabled>Ingrese una opcion:</option>
+                                            </select>
                                         </div>
                                     </label>
                                     <br><br>
                                     <label for="estado">
                                         <span>Selecione un estado:</span>
-                                        <div id = "select_estado">
-                                        <select id="estadoSelect">
-                                            <option value = "0" disabled>Ingrese una opcion:</option>
-                                        </select>
+                                        <div id="select_estado">
+                                            <select id="estadoSelect" name="estadoSelect">
+                                                <option value="0" disabled>Ingrese una opcion:</option>
+                                            </select>
                                         </div>
                                     </label>
                                     <br>
                                     <br><br>
+                                    <input type="hidden" id="randomCode" name="randomCode">
+                                    <input type="hidden" id="rol" name="rol" value="3">
                                     <input class="btn btn-primary btn-lg btn-block mb-2" type="submit" value="Enviar"/> 
                                 </form>
 
@@ -120,6 +138,29 @@
     
     </body>
    
-
+<script>
+    function generateRandomCode(length) {
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var result = '';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        var randomCode = generateRandomCode(6);
+        document.getElementById('randomCode').value = randomCode;
+        document.getElementById('rol').value = 3
+    });
+</script>
+<script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>    
+<script>
+    ClassicEditor
+        .create(document.querySelector('#descripcion'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 </html>
